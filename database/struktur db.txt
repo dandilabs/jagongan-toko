@@ -1,0 +1,172 @@
+uses
+kategori
+produk
+member
+supplier
+pengeluaran
+pembelian
+pembelian_Detail
+penjualan
+Penjualan_detail
+setting
+
+
+Table users {
+  id int PK
+  name varchar
+  email varchar // unique
+  password varchar
+  foto varchar
+  level tinyint 
+  remember_token varchar // nullable
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Table kategori {
+  id_kategori int PK
+  nama_kategori varchar // unique
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Table produk {
+  id_produk int PK
+  id_kategori int 
+  nama_produk varchar // unique
+  merk varchar // nullable
+  harga_beli int
+  diskon int //nullable default 0
+  harga_jual int 
+  stok int // default 0
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Ref {
+  produk.id_kategori > kategori.id_kategori
+}
+
+
+Table member{
+  id_member int PK 
+  kode_member varchar
+  nama varchar
+  alamat text
+  telepon varchar
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Table supplier {
+  id_supplier int PK
+  nama varchar
+  alamat text // nullable
+  telepon varchar
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Table pengeluaran {
+  id_pengeluaran int PK
+  deskripsi text 
+  nominal int
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Table pembelian {
+  id_pembelian int PK
+  id_supplier int
+  total_item int
+  total_harga int
+  diskon int // default 0
+  bayar int
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Ref {
+  pembelian.id_supplier > supplier.id_supplier
+}
+
+Table pembelian_detail {
+  id_pembelian_detail int PK
+  id_pembelian int
+  id_produk int
+  harga_beli int
+  jumlah int
+  subtotal int
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Ref {
+ pembelian_detail.id_pembelian > pembelian.id_pembelian
+}
+
+Ref {
+  pembelian_detail.id_produk > produk.id_produk
+}
+
+Table penjualan {
+  id_penjualan int PK
+  id_member int
+  total_item int
+  total_harga int
+  diskon int // nullable default 0
+  bayar int
+  diterima int // default 0
+  id_user int
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Ref{
+  penjualan.id_member > member.id_member
+}
+
+
+Table penjualan_detail {
+  id_penjualan_detail int PK
+  id_penjualan int
+  id_produk int
+  harga_jual int
+  jumlah int
+  diskon int // default 0
+  subtotal int
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+Ref{
+  penjualan_detail.id_penjualan > penjualan.id_penjualan
+}
+
+Ref {
+  penjualan_detail.id_produk > produk.id_produk
+}
+
+Table setting {
+  id_setting int PK
+  nama_perusahaan varchar
+  alamat text // nullable
+  telepon varchar
+  path_logo varchar // nullable
+  tipe_nota tinyint
+  created_at timestamp // nullable
+  updated_at timestamp // nullable
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
