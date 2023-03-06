@@ -31,58 +31,68 @@
         </a>
     </li>
     <li class="header">MASTER</li>
-    <li class="active treeview">
-        <a href="#">
-        <i class="fa fa-dashboard"></i> <span>Master</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-cube"></i> <span>Kategori</span>
         </a>
-        <ul class="treeview-menu">
-        <li class="active"><a href="index.html"><i class="fa fa-cubes"></i> Kategori</a></li>
-        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Produk</a></li>
-        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Member</a></li>
-        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Supplier</a></li>
-        </ul>
     </li>
-    <li class="treeview">
-        <a href="#">
-        <i class="fa fa-pie-chart"></i>
-        <span>Transaksi</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-cubes"></i> <span>Produk</span>
         </a>
-        <ul class="treeview-menu">
-        <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Pengeluaran</a></li>
-        <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Pembelian</a></li>
-        <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Penjualan</a></li>
-        <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Transaksi Lama</a></li>
-        <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Transaksi Baru</a></li>
-        </ul>
     </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-book"></i> <span>Report</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-id-card"></i> <span>Member</span>
         </a>
-        <ul class="treeview-menu">
-        <li><a href="#"><i class="fa fa-circle-o"></i> laporan</a></li>
-        </ul>
     </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-book"></i> <span>System</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-        </span>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-truck"></i> <span>Supplier</span>
         </a>
-        <ul class="treeview-menu">
-        <li><a href="#"><i class="fa fa-circle-o"></i> User</a></li>
-        <li><a href="#"><i class="fa fa-circle-o"></i> Pengaturan</a></li>
-        </ul>
+    </li>
+    <li class="header">TRANSAKSI</li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-money"></i> <span>Pengeluaran</span>
+        </a>
+    </li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-download"></i> <span>Pembelian</span>
+        </a>
+    </li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-upload"></i> <span>Penjualan</span>
+        </a>
+    </li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
+        </a>
+    </li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
+        </a>
+    </li>
+    <li class="header">REPORT</li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
+        </a>
+    </li>
+    <li class="header">SYSTEM</li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-users"></i> <span>User</span>
+        </a>
+    </li>
+    <li>
+        <a href="pages/widgets.html">
+            <i class="fa fa-cogs"></i> <span>Pengaturan</span>
+        </a>
     </li>
     </ul>
 </section>
