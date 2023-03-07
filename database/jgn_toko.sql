@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2023 at 11:51 AM
+-- Generation Time: Mar 07, 2023 at 11:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -96,7 +96,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2023_03_06_073250_create_penjualan_table', 2),
 (16, '2023_03_06_073302_create_penjualan_detail_table', 2),
 (17, '2023_03_06_073321_create_setting_table', 2),
-(18, '2023_03_06_074430_create_pengeluaran_table', 2);
+(18, '2023_03_06_074430_create_pengeluaran_table', 2),
+(19, '2014_10_12_200000_add_two_factor_columns_to_users_table', 3),
+(20, '2023_03_07_062718_create_sessions_table', 3);
 
 -- --------------------------------------------------------
 
@@ -236,6 +238,31 @@ CREATE TABLE `product` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('9wTa9oVUu7NeArncLAubKuEW6GTIb7b7idfwORZW', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiY1l3SnFIckk3UXI4RmdEa2dPc3c1cDhvb1NlSjFYTW80eHZrNlBuMiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMCQ3R0VWVTExQ1VXY2JudFkvaDduVkxlRzBWTXV4VFZEcUhRd0hqTGpuai5BUWl6Y0ZlMUd0bSI7fQ==', 1678184130),
+('CfRTyblXI1fP42f19LlCtTujVgZPJgrBsbQgvomV', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoic2FmbkxxT3BYZk9sdjdQSnhjZm9oZDduOUp3YTI5ZzBLam5DclJNVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEwJDdHRVZVMTFDVVdjYm50WS9oN25WTGVHMFZNdXhUVkRxSFF3SGpMam5qLkFRaXpjRmUxR3RtIjt9', 1678185632),
+('PbBulNFHWCOjZ9ElJwMYMpl0cupkG5q7dMRzbYM7', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoib0EwT0dBR1M0QTBJRkFFaEg0elhNUTgyU1BpQnZqbklWWVBMVVFHSSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEwJDdHRVZVMTFDVVdjYm50WS9oN25WTGVHMFZNdXhUVkRxSFF3SGpMam5qLkFRaXpjRmUxR3RtIjt9', 1678183971),
+('VtftqV3Y0Lg8U5kkiNtxp2UmlDIBxEtSRMVUEIbs', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYWRZMjUxaElTb3FPeHBMOEo4d25TUUlhVkVRWkVXZzByZXN1c29MeSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=', 1678184871);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `setting`
 --
 
@@ -278,12 +305,23 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `two_factor_secret` text DEFAULT NULL,
+  `two_factor_recovery_codes` text DEFAULT NULL,
+  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `level` tinyint(4) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `foto`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Administrator', 'adminofficial@bprrb.com', NULL, '$2y$10$7GEVU11CUWcbntY/h7nVLeG0VMuxTVDqHQwHjLjnj.AQizcFe1Gtm', NULL, NULL, NULL, NULL, 1, NULL, '2023-03-06 23:35:14', '2023-03-06 23:38:50'),
+(2, 'Dandi Hermawan', 'member@member.com', NULL, '$2y$10$tkPvRclmrQO3L.Q6Ln3zHewjHKxKserlO03EIy437/mJCkyacPiJ.', NULL, NULL, NULL, NULL, 0, NULL, '2023-03-06 23:37:12', '2023-03-06 23:37:12');
 
 --
 -- Indexes for dumped tables
@@ -368,6 +406,14 @@ ALTER TABLE `product`
   ADD UNIQUE KEY `product_name_product_unique` (`name_product`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
@@ -412,7 +458,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
@@ -472,7 +518,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
