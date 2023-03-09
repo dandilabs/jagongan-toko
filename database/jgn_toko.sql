@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 04:45 AM
+-- Generation Time: Mar 09, 2023 at 12:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -33,13 +33,6 @@ CREATE TABLE `category` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`id_category`, `name_category`, `created_at`, `updated_at`) VALUES
-(1, 'Mekanik', '2023-03-08 19:21:41', '2023-03-08 20:33:21');
 
 -- --------------------------------------------------------
 
@@ -105,7 +98,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2023_03_06_073321_create_setting_table', 2),
 (18, '2023_03_06_074430_create_pengeluaran_table', 2),
 (19, '2014_10_12_200000_add_two_factor_columns_to_users_table', 3),
-(20, '2023_03_07_062718_create_sessions_table', 3);
+(20, '2023_03_07_062718_create_sessions_table', 3),
+(21, '2023_03_09_063143_tambah_foreign_key_to_product_table', 4);
 
 -- --------------------------------------------------------
 
@@ -231,7 +225,7 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `product` (
   `id_product` int(10) UNSIGNED NOT NULL,
-  `id_category` int(11) NOT NULL,
+  `id_category` int(10) UNSIGNED NOT NULL,
   `name_product` varchar(255) NOT NULL,
   `merk` varchar(255) DEFAULT NULL,
   `harga_beli` varchar(255) NOT NULL,
@@ -262,7 +256,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('HZvCykWkEJPhXcoxSMWTuEsZHA3GHqcAT1m02V0h', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMml6NExaZXZmUUpRSFJoenRGRnJJRHdlSHdneHJuRDZlbzFEVGdQMCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jYXRlZ29yeSI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkN0dFVlUxMUNVV2NibnRZL2g3blZMZUcwVk11eFRWRHFIUXdIakxqbmouQVFpemNGZTFHdG0iO30=', 1678333520);
+('HZvCykWkEJPhXcoxSMWTuEsZHA3GHqcAT1m02V0h', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMml6NExaZXZmUUpRSFJoenRGRnJJRHdlSHdneHJuRDZlbzFEVGdQMCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jYXRlZ29yeSI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkN0dFVlUxMUNVV2NibnRZL2g3blZMZUcwVk11eFRWRHFIUXdIakxqbmouQVFpemNGZTFHdG0iO30=', 1678333520),
+('iXBDdM18eiEv8XRlPL5eVCwyIL5We7x6dXTDHAkw', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWFRlSThxcjk2RHpQbzg1WFFLY3JhVTE0WVJBU25jMENrTjVWUmtPeiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMCQ3R0VWVTExQ1VXY2JudFkvaDduVkxlRzBWTXV4VFZEcUhRd0hqTGpuai5BUWl6Y0ZlMUd0bSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0Ijt9fQ==', 1678349967);
 
 -- --------------------------------------------------------
 
@@ -407,7 +402,8 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id_product`),
-  ADD UNIQUE KEY `product_name_product_unique` (`name_product`);
+  ADD UNIQUE KEY `product_name_product_unique` (`name_product`),
+  ADD KEY `product_id_category_foreign` (`id_category`);
 
 --
 -- Indexes for table `sessions`
@@ -462,7 +458,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
@@ -523,6 +519,16 @@ ALTER TABLE `supplier`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_id_category_foreign` FOREIGN KEY (`id_category`) REFERENCES `category` (`id_category`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
