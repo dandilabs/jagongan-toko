@@ -40,7 +40,7 @@
                             </div>
                             <div class="pull-right">
                                 <a href="#" onclick="document.getElementById('logout-form').submit()" class="btn btn-danger btn-flat">
-                                    Sign out
+                                    Keluar
                                 </a>
                             </div>
                         </li>
