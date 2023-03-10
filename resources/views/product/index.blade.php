@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('title')
-Product
+Produk
 @endsection
 
 @section('breadcrumb')
 @parent
-<li class="active">Product</li>
+<li class="active">Produk</li>
 @endsection
 
 @section('content')
@@ -42,7 +42,7 @@ Product
     <!-- /.col -->
 </div>
 <!-- /.row -->
-@includeIf('category.form')
+@includeIf('product.form')
 @endsection
 
 @push('scripts')
@@ -60,11 +60,11 @@ Product
                     {data: 'DT_RowIndex', searchable: false,sortable:false},
                     {data : 'kode_product'},
                     {data : 'name_product'},
-                    {data : 'category'},
+                    {data : 'name_category'},
                     {data : 'merk'},
                     {data : 'harga_beli'},
                     {data : 'harga_jual'},
-                    {data : 'dikon'},
+                    {data : 'diskon'},
                     {data : 'stock'},
                     {data : 'action', searchable: false,sortable:false}
                 ]
@@ -87,26 +87,33 @@ Product
 
         function addForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Add Product')
+            $('#modal-form .modal-title').text('Tambah Produk')
 
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name = _method]').val('post');
-            $('#modal-form [name = name_category]').focus();
+            $('#modal-form [name = name_product]').focus();
 
         }
 
         function editForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Product')
+            $('#modal-form .modal-title').text('Edit Produk')
 
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name = _method]').val('put');
-            $('#modal-form [name = name_category]').focus();
+            $('#modal-form [name = name_product]').focus();
             $.get(url)
             .done((response) =>{
-                $('#modal-form [name = name_category]').val(response.name_category);
+                $('#modal-form [name = name_product]').val(response.name_product);
+                $('#modal-form [name = id_category]').val(response.id_category);
+                $('#modal-form [name = merk]').val(response.merk);
+                $('#modal-form [name = harga_beli]').val(response.harga_beli);
+                $('#modal-form [name = harga_jual]').val(response.harga_jual);
+                $('#modal-form [name = diskon]').val(response.diskon);
+                $('#modal-form [name = stock]').val(response.stock);
+
             })
             .fail((errors) => {
                 alert('Tidak dapat menampilkan data');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,16 +15,32 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('product.index');
+        $category_data = Category::all()->pluck('name_category','id_category');
+        return view('product.index', compact('category_data'));
     }
 
     public function data()
     {
-        $product_data = Product::orderBy('id_product','desc')->get();
+        $product_data = Product::leftJoin('category', 'category.id_category','product.id_category')
+        ->select('product.*', 'name_category')
+        ->orderBy('kode_product','asc')
+        ->get();
 
         return datatables()
         ->of($product_data)
         ->addIndexColumn()
+        ->addColumn('kode_product', function ($product) {
+            return '<span class="label label-success">'. $product->kode_product .'</span>';
+        })
+        ->addColumn('harga_beli', function ($product) {
+            return format_uang($product->harga_beli);
+        })
+        ->addColumn('harga_jual', function ($product) {
+            return format_uang($product->harga_jual);
+        })
+        ->addColumn('stock', function ($product) {
+            return format_uang($product->stock);
+        })
         ->addColumn('action' , function ($product_data) {
             return '
             <div class="btn-group">
@@ -32,7 +49,7 @@ class ProductController extends Controller
             </div>
             ';
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['action','kode_product'])
         ->make(true);
     }
 
@@ -54,9 +71,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product_data = New Product();
-        $product_data->name_category = $request->name_category;
-        $product_data->save();
+        $product = Product::latest()->first();
+        $request['kode_product'] = 'P' . tambah_nol_didepan((int)$product->id_product +1, 6);
+        $product = Product::create($request->all());
 
         return response()->json('Data berhasil disimpan', 200);
     }
@@ -69,7 +86,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+        return response()->json($product);
     }
 
     /**
@@ -92,7 +110,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return response()->json('Data berhasil diperbarui', 200);
     }
 
     /**
@@ -103,6 +123,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return response(null, 204);
     }
 }

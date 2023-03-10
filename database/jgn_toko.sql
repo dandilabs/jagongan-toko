@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 12:16 PM
+-- Generation Time: Mar 10, 2023 at 08:22 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -33,6 +33,13 @@ CREATE TABLE `category` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id_category`, `name_category`, `created_at`, `updated_at`) VALUES
+(3, 'Makanan', '2023-03-09 20:44:42', '2023-03-09 20:44:42');
 
 -- --------------------------------------------------------
 
@@ -99,7 +106,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2023_03_06_074430_create_pengeluaran_table', 2),
 (19, '2014_10_12_200000_add_two_factor_columns_to_users_table', 3),
 (20, '2023_03_07_062718_create_sessions_table', 3),
-(21, '2023_03_09_063143_tambah_foreign_key_to_product_table', 4);
+(21, '2023_03_09_063143_tambah_foreign_key_to_product_table', 4),
+(22, '2023_03_10_043048_tambah_kode_product_to_product_table', 5);
 
 -- --------------------------------------------------------
 
@@ -226,6 +234,7 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `product` (
   `id_product` int(10) UNSIGNED NOT NULL,
   `id_category` int(10) UNSIGNED NOT NULL,
+  `kode_product` varchar(255) NOT NULL,
   `name_product` varchar(255) NOT NULL,
   `merk` varchar(255) DEFAULT NULL,
   `harga_beli` varchar(255) NOT NULL,
@@ -235,6 +244,15 @@ CREATE TABLE `product` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id_product`, `id_category`, `kode_product`, `name_product`, `merk`, `harga_beli`, `diskon`, `harga_jual`, `stock`, `created_at`, `updated_at`) VALUES
+(1, 3, 'P000001', 'Roma biskuit update', 'Roma', '2000', 0, 1000, 100, '2023-03-09 21:23:02', '2023-03-10 00:14:09'),
+(2, 3, 'P000002', 'okie jelli', 'Roma', '5000', 0, 2000, 100, '2023-03-09 21:33:16', '2023-03-09 21:33:16'),
+(3, 3, 'P000003', 'Minyak Goreng', 'Bimoli', '25000', 0, 30000, 1000, '2023-03-10 00:14:48', '2023-03-10 00:14:48');
 
 -- --------------------------------------------------------
 
@@ -256,8 +274,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('HZvCykWkEJPhXcoxSMWTuEsZHA3GHqcAT1m02V0h', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMml6NExaZXZmUUpRSFJoenRGRnJJRHdlSHdneHJuRDZlbzFEVGdQMCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jYXRlZ29yeSI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkN0dFVlUxMUNVV2NibnRZL2g3blZMZUcwVk11eFRWRHFIUXdIakxqbmouQVFpemNGZTFHdG0iO30=', 1678333520),
-('iXBDdM18eiEv8XRlPL5eVCwyIL5We7x6dXTDHAkw', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWFRlSThxcjk2RHpQbzg1WFFLY3JhVTE0WVJBU25jMENrTjVWUmtPeiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMCQ3R0VWVTExQ1VXY2JudFkvaDduVkxlRzBWTXV4VFZEcUhRd0hqTGpuai5BUWl6Y0ZlMUd0bSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0Ijt9fQ==', 1678349967);
+('OcZJzECn2V0EduFlm4nAe05jb5GHyjTJE6W36E5H', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoia0xBb2IxamgxNnhrWG5BY1JLNDN3dHlPb2lRYWthWEpodWtvYWl6ViI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMCQ3R0VWVTExQ1VXY2JudFkvaDduVkxlRzBWTXV4VFZEcUhRd0hqTGpuai5BUWl6Y0ZlMUd0bSI7fQ==', 1678432898);
 
 -- --------------------------------------------------------
 
@@ -403,6 +420,7 @@ ALTER TABLE `personal_access_tokens`
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id_product`),
   ADD UNIQUE KEY `product_name_product_unique` (`name_product`),
+  ADD UNIQUE KEY `product_kode_product_unique` (`kode_product`),
   ADD KEY `product_id_category_foreign` (`id_category`);
 
 --
@@ -440,7 +458,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_category` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -458,7 +476,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
@@ -500,7 +518,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_product` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `setting`
